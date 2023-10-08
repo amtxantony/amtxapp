@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+$primary: #3498db; // Calm blue color
+$secondary: #ecf0f1; // Light grey background
+
+@import "bootstrap";

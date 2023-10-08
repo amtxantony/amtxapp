@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  order_no_prefix: MyString
+  email: MyString
+  tier: MyString
+
+two:
+  name: MyString
+  order_no_prefix: MyString
+  email: MyString
+  tier: MyString

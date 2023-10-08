@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  start_date: 2023-10-08 21:26:40
+  end_date: 2023-10-08 21:26:40
+  orders: MyString
+  invoiced: false
+  invoiced_date: 2023-10-08 21:26:40
+  bill_type: MyString
+
+two:
+  customer_id: 1
+  start_date: 2023-10-08 21:26:40
+  end_date: 2023-10-08 21:26:40
+  orders: MyString
+  invoiced: false
+  invoiced_date: 2023-10-08 21:26:40
+  bill_type: MyString

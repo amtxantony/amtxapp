@@ -67,4 +67,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  STARSHIPIT_KEY = "8f8b79ececf743479d8610ee2584c539"
+  STARSHIPIT_SUBSCRIPTION_KEY = "41e955ba024b41e4baf1c97b25941367"
 end

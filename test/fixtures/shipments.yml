@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipment_id: MyString
+  manifest_id: MyString
+
+two:
+  shipment_id: MyString
+  manifest_id: MyString

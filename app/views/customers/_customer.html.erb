@@ -1,0 +1,7 @@
+<tr id="<%= dom_id customer %>">
+  <th scope="row"><%= customer.name %></th>
+  <td><%= customer.order_no_prefix %></td>
+  <td><%= customer.email %></td>
+  <td><%= customer.tier %></td>
+  <td><%= link_to "Details", customer, :class=> "btn btn-primary btn-sm" %></td>
+</tr>
