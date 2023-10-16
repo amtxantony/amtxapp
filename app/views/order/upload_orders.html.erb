@@ -1,0 +1,4 @@
+<%= form_tag "/bills/generate_ecommerce_bills", multipart: true do %>
+  <%= file_field_tag 'excel_file', :class=>"form-label" %>
+  <%= submit_tag 'Upload File', :class=>"btn btn-primary" %>
+<% end %>

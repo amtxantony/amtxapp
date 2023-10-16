@@ -1,16 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Bills</h1>
+<h3>Ecommerce Bills</h3>
 
 
-
-<div id="bills">
-  <% @bills.each do |bill| %>
-    <%= render bill %>
-    <p>
-      <%= link_to "Show this bill", bill %>
-    </p>
-  <% end %>
+<div class="container">
+  <%= link_to "Upload Order IDs", {controller: :order, action: :upload_orders}, {:class=>"btn btn-primary"} %>
 </div>
 
-<%= link_to "New bill", new_bill_path %>
+<div class="row-gap-3"></div>
+
+<div id="bills">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Customer</th>
+        <th scope="col">Start date</th>
+        <th scope="col">End date</th>
+        <th scope="col">Orders</th>
+        <th scope="col">Invoiced?</th>
+        <th scope="col">Invoiced date</th>
+        <th scope="col">Bill type</th>
+        <th scope="col">Handling Fee</th>
+        <th scope="col">Shipping Fee</th> 
+        <th scope="col">Action</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <% @bills.each do |bill| %>
+        <%= render bill %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

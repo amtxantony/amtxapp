@@ -1,0 +1,33 @@
+<div id="orders">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col"><input id="select_all" type="checkbox" /></th>
+        <th scope="col">Order Number</th>
+        <th scope="col">Customer Prefix</th>
+        <th scope="col">Billed?</th>
+        <th scope="col">Postcode</th>
+        <th scope="col">Handling Fee</th>
+        <th scope="col">Shipping Fee</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr id="<%= order.id %>">
+		  <td><input id="<%="#{order.id}"%>" type="checkbox" /></td>
+		  <td><%= order.order_number %></td>
+		  <td><%= order.customer_id %></td>
+		  <td><%= order.billed %></td>
+		  <td><%= order.postcode %></td>
+		  <td><%= order.handling_fee %></td>
+		  <td><%= order.shipping_fee %></td>
+		</tr>
+      <% end %>
+    </tbody>
+    <tr>
+    	<td colspan="7">
+    		<%= will_paginate @orders %>
+    	</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Customer ratecards</h1>
+
+<div id="customer_ratecards">
+  <% @customer_ratecards.each do |customer_ratecard| %>
+    <%= render customer_ratecard %>
+    <p>
+      <%= link_to "Show this customer ratecard", customer_ratecard %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New customer ratecard", new_customer_ratecard_path %>

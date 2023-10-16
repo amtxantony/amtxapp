@@ -90,4 +90,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  STARSHIPIT_KEY = "8f8b79ececf743479d8610ee2584c539"
+  STARSHIPIT_SUBSCRIPTION_KEY = "41e955ba024b41e4baf1c97b25941367"
+
+  PRICE_TIER = [0.05,0.1,0.15,0.2]
 end

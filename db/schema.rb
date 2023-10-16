@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_08_102640) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_16_050628) do
   create_table "bills", force: :cascade do |t|
     t.integer "customer_id"
     t.datetime "start_date"
@@ -19,6 +19,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_08_102640) do
     t.boolean "invoiced"
     t.datetime "invoiced_date"
     t.string "bill_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "handling_fee"
+    t.decimal "shipping_fee"
+  end
+
+  create_table "customer_ratecards", force: :cascade do |t|
+    t.string "customer_id"
+    t.decimal "order_fee"
+    t.decimal "handle_out_fee"
+    t.decimal "band_1_1st"
+    t.decimal "band_1_add"
+    t.decimal "band_2_1st"
+    t.decimal "band_2_add"
+    t.decimal "band_3_1st"
+    t.decimal "band_3_add"
+    t.decimal "band_4_1st"
+    t.decimal "band_4_add"
+    t.decimal "band_5_1st"
+    t.decimal "band_5_add"
+    t.decimal "band_6_1st"
+    t.decimal "band_6_add"
+    t.decimal "band_6_extra_per_kg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,6 +64,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_08_102640) do
     t.string "item_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "weight"
+  end
+
+  create_table "order_packages", force: :cascade do |t|
+    t.string "package_id"
+    t.decimal "weight"
+    t.decimal "length"
+    t.decimal "width"
+    t.decimal "height"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "order_number"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -59,6 +94,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_08_102640) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "their_order_id"
+    t.boolean "billed"
+    t.string "carrier_service_code"
+    t.decimal "handling_fee"
+    t.decimal "shipping_fee"
   end
 
   create_table "shipments", force: :cascade do |t|

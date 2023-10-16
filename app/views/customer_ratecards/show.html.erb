@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @customer_ratecard %>
+
+<div>
+  <%= link_to "Edit this customer ratecard", edit_customer_ratecard_path(@customer_ratecard) %> |
+  <%= link_to "Back to customer ratecards", customer_ratecards_path %>
+
+  <%= button_to "Destroy this customer ratecard", @customer_ratecard, method: :delete %>
+</div>

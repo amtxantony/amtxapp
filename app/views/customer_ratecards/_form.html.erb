@@ -1,0 +1,97 @@
+<%= form_with(model: customer_ratecard) do |form| %>
+  <% if customer_ratecard.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(customer_ratecard.errors.count, "error") %> prohibited this customer_ratecard from being saved:</h2>
+
+      <ul>
+        <% customer_ratecard.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :customer_id, style: "display: block" %>
+    <%= form.text_field :customer_id %>
+  </div>
+
+  <div>
+    <%= form.label :order_fee, style: "display: block" %>
+    <%= form.text_field :order_fee %>
+  </div>
+
+  <div>
+    <%= form.label :handle_out_fee, style: "display: block" %>
+    <%= form.text_field :handle_out_fee %>
+  </div>
+
+  <div>
+    <%= form.label :band_1_1st, style: "display: block" %>
+    <%= form.text_field :band_1_1st %>
+  </div>
+
+  <div>
+    <%= form.label :band_1_add, style: "display: block" %>
+    <%= form.text_field :band_1_add %>
+  </div>
+
+  <div>
+    <%= form.label :band_2_1st, style: "display: block" %>
+    <%= form.text_field :band_2_1st %>
+  </div>
+
+  <div>
+    <%= form.label :band_2_add, style: "display: block" %>
+    <%= form.text_field :band_2_add %>
+  </div>
+
+  <div>
+    <%= form.label :band_3_1st, style: "display: block" %>
+    <%= form.text_field :band_3_1st %>
+  </div>
+
+  <div>
+    <%= form.label :band_3_add, style: "display: block" %>
+    <%= form.text_field :band_3_add %>
+  </div>
+
+  <div>
+    <%= form.label :band_4_1st, style: "display: block" %>
+    <%= form.text_field :band_4_1st %>
+  </div>
+
+  <div>
+    <%= form.label :band_4_add, style: "display: block" %>
+    <%= form.text_field :band_4_add %>
+  </div>
+
+  <div>
+    <%= form.label :band_5_1st, style: "display: block" %>
+    <%= form.text_field :band_5_1st %>
+  </div>
+
+  <div>
+    <%= form.label :band_5_add, style: "display: block" %>
+    <%= form.text_field :band_5_add %>
+  </div>
+
+  <div>
+    <%= form.label :band_6_1st, style: "display: block" %>
+    <%= form.text_field :band_6_1st %>
+  </div>
+
+  <div>
+    <%= form.label :band_6_add, style: "display: block" %>
+    <%= form.text_field :band_6_add %>
+  </div>
+
+  <div>
+    <%= form.label :band_6_extra_per_kg, style: "display: block" %>
+    <%= form.text_field :band_6_extra_per_kg %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

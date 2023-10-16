@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: MyString
+  order_fee: 9.99
+  handle_out_fee: 9.99
+  band_1_1st: 9.99
+  band_1_add: 9.99
+  band_2_1st: 9.99
+  band_2_add: 9.99
+  band_3_1st: 9.99
+  band_3_add: 9.99
+  band_4_1st: 9.99
+  band_4_add: 9.99
+  band_5_1st: 9.99
+  band_5_add: 9.99
+  band_6_1st: 9.99
+  band_6_add: 9.99
+  band_6_extra_per_kg: 9.99
+
+two:
+  customer_id: MyString
+  order_fee: 9.99
+  handle_out_fee: 9.99
+  band_1_1st: 9.99
+  band_1_add: 9.99
+  band_2_1st: 9.99
+  band_2_add: 9.99
+  band_3_1st: 9.99
+  band_3_add: 9.99
+  band_4_1st: 9.99
+  band_4_add: 9.99
+  band_5_1st: 9.99
+  band_5_add: 9.99
+  band_6_1st: 9.99
+  band_6_add: 9.99
+  band_6_extra_per_kg: 9.99
