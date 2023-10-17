@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :order do
     collection do
       #post :generate_ecommerce_bills
-      get :index, :upload_orders
+      get :index, :upload_orders, :bills_orders
     end
   end
 

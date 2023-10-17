@@ -1,3 +1,4 @@
+require 'cgi'
 class BillsController < ApplicationController
   before_action :set_bill, only: %i[ show edit update destroy ], except: %i[vieworders]
 
@@ -193,15 +194,13 @@ class BillsController < ApplicationController
           end
         end
 
-        puts "#{handling_fee},#{shipping_fee}"
-
         order.update!(
             handling_fee: handling_fee,
             shipping_fee: shipping_fee
           )
       end
     end
-    redirect_to :controller =>"order", :action => "index"
+    redirect_to :controller =>"order", :action => "bills_orders", :order_numbers => CGI.escape(order_numbers_select.join(','))
   end
 
   private
