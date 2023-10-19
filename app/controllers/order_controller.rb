@@ -1,4 +1,3 @@
-require 'axlsx'
 class OrderController < ApplicationController
   def index
     @orders = Order.order('id desc').paginate(page: params[:page], per_page: 100)

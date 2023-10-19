@@ -200,7 +200,8 @@ class BillsController < ApplicationController
           )
       end
     end
-    redirect_to :controller =>"order", :action => "bills_orders", :order_numbers => CGI.escape(order_numbers_select.join(','))
+    #redirect_to :controller =>"order", :action => "bills_orders", :order_numbers => CGI.escape(order_numbers_select.join(',')), :format => "xlsx"
+    redirect_to :controller =>"order", :action => "index"
   end
 
   private

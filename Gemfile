@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.0"
 
-gem 'roo'
+gem "roo", "~> 2.10.0"
 
 gem 'httparty'
 
@@ -33,9 +33,8 @@ gem "jbuilder"
 
 gem 'bootstrap', '~> 5.0.0'
 
-gem 'axlsx_rails'
-
-gem 'axlsx'
+#gem 'axlsx'
+#gem 'axlsx_rails'
 
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap4'
