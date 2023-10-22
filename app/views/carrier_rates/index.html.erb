@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Carrier rates</h1>
+<p>
+  <%= link_to "Upload carrier rate", new_carrier_rate_path, :class=>"btn btn-primary" %>
+</p>
+<div id="carrier_rates">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Product Code</td>
+        <td>Zone</td>
+        <td>Weight Band</td>
+        <td>Rate</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+        <% @carrier_rates.each do |carrier_rate| %>
+          <tr>
+          <%= render carrier_rate %>
+          <td>
+            <%= link_to "Show this carrier rate", carrier_rate %>
+          </td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+

@@ -1,0 +1,2 @@
+module CarrierRatesHelper
+end

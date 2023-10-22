@@ -1,0 +1,2 @@
+class CarrierRate < ApplicationRecord
+end

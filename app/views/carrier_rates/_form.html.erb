@@ -1,0 +1,28 @@
+<%= form_with(model: carrier_rate, multipart: true) do |form| %>
+  <% if carrier_rate.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(carrier_rate.errors.count, "error") %> prohibited this carrier_rate from being saved:</h2>
+
+      <ul>
+        <% carrier_rate.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= select_tag 'carrier_product', options_for_select(@carrier_products.collect{ |c| [c['name'], c['code']] }), :class=>"form-label" %>
+  </div>
+
+  <div>
+    <%= file_field_tag 'excel_file', :class=>"form-label" %>
+  </div>
+
+  <div>
+    <%= submit_tag 'Upload File', :class=>"btn btn-primary" %>
+  </div>
+
+
+  
+<% end %>

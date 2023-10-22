@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_16_050628) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_21_231428) do
   create_table "bills", force: :cascade do |t|
     t.integer "customer_id"
     t.datetime "start_date"
@@ -23,6 +23,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_050628) do
     t.datetime "updated_at", null: false
     t.decimal "handling_fee"
     t.decimal "shipping_fee"
+  end
+
+  create_table "carrier_rates", force: :cascade do |t|
+    t.string "carrier_product_code"
+    t.string "zone"
+    t.integer "weight_band"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "rate"
   end
 
   create_table "customer_ratecards", force: :cascade do |t|
@@ -76,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_050628) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "order_number"
+    t.integer "weight_band"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -99,6 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_050628) do
     t.string "carrier_service_code"
     t.decimal "handling_fee"
     t.decimal "shipping_fee"
+    t.integer "status"
   end
 
   create_table "shipments", force: :cascade do |t|

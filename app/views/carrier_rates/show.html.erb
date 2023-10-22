@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @carrier_rate %>
+
+<div>
+  <%= link_to "Edit this carrier rate", edit_carrier_rate_path(@carrier_rate) %> |
+  <%= link_to "Back to carrier rates", carrier_rates_path %>
+
+  <%= button_to "Destroy this carrier rate", @carrier_rate, method: :delete %>
+</div>

@@ -19,8 +19,12 @@ class StarshipitService
 
 
   def fetch_shipped_orders(from_date)
-    after_date = CGI.escape(DateTime.parse(from_date).rfc3339)
-    response = self.class.get("/api/orders/shipped?since_last_updated=#{after_date}&ids_only=1", @options)
+    if from_date != 0
+      after_date = CGI.escape(DateTime.parse(from_date).rfc3339)
+      response = self.class.get("/api/orders/shipped?since_last_updated=#{after_date}", @options)
+    else
+      response = self.class.get("/api/orders/shipped", @options)
+    end
     response.parsed_response['orders'] if response.success?
   end
 

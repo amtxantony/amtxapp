@@ -1,0 +1,13 @@
+  <td>
+    <%= carrier_rate.carrier_product_code %>
+  </td>
+
+  <td>
+    <%= carrier_rate.zone %>
+  </td>
+
+  <td>
+    <%= "#{WEIGHT_RANGE[carrier_rate.weight_band]['low']} - #{WEIGHT_RANGE[carrier_rate.weight_band]['high']}" %>
+  </td>
+
+  <td><%= carrier_rate.rate %></td>

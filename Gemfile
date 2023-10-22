@@ -5,6 +5,8 @@ ruby "3.2.0"
 
 gem "roo", "~> 2.10.0"
 
+gem 'whenever', require: false
+
 gem 'httparty'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

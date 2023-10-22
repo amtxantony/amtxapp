@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  carrier_product_code: MyString
+  zone: MyString
+  weight_band: 1
+
+two:
+  carrier_product_code: MyString
+  zone: MyString
+  weight_band: 1
