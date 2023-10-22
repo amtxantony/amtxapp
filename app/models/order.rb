@@ -6,35 +6,40 @@ class Order < ApplicationRecord
 	def fetch_new_shipped_orders
 		last_order = Order.last
 		starshipit_service = StarshipitService.new()
+		page = 1
 		if last_order
-	    	orders = starshipit_service.fetch_shipped_orders(last_order.order_date)
+	    	orders = starshipit_service.fetch_shipped_orders(last_order.order_date, page)
 	    else
-	    	orders = starshipit_service.fetch_shipped_orders(0)
+	    	orders = starshipit_service.fetch_shipped_orders(0, page)
 	    end
 
-	    customer_prefixes = Customer.all.pluck(:order_no_prefix)
-
-	    if orders
-		    orders['orders'].each do |order|
-		    	unless Order.exist(:order_number => order['order_number'])
-		    		Order.create!(
-			          their_order_id: order['order_id'], 
-			          order_source: order['reference'],
-			          order_date: order['order_date'],  
-			          order_number: order['order_number'],
-			          carrier_service_code: ['carrier_service_code'],
-			          customer_id: customer_prefixes.find { |s| order['order_number'].include? s },
-			          handling_fee: 0.0,
-			          shipping_fee: 0.0,
-			          status: ORDER_STATUS['fetched']
-			        )
-		    	end
-		    end
+	    while orders.size > 0
+		    if orders
+		    	puts orders
+			    orders.each do |order|
+			    	unless Order.exists?(:order_number => order['order_number'])
+			    		Order.create!(
+				          their_order_id: order['order_id'],
+				          order_date: order['order_date'],
+				          order_number: order['order_number'],
+				          handling_fee: 0.0,
+				          shipping_fee: 0.0,
+				          status: ORDER_STATUS['fetched']
+				        )
+			    	end
+			    end
+			end
+			page += 1
+			last_order = Order.last
+			sleep(3)
+			orders = starshipit_service.fetch_shipped_orders(last_order.order_date, page)
 		end
   	end
 
   	def get_individaul_order
   		order = Order.where(:status => ORDER_STATUS['fetched']).first
+  		customer_prefixes = Customer.all.pluck(:order_no_prefix)
+
   		starshipit_service = StarshipitService.new()
   		if order 			
   			new_order = starshipit_service.get_order(order.order_number)
@@ -42,6 +47,11 @@ class Order < ApplicationRecord
         	customer = Customer.find_by_order_no_prefix(order.customer_id)
 
 	        order.update(
+	       	  order_source: new_order['order']['reference'],
+			  order_date: new_order['order']['order_date'],  
+			  order_number: new_order['order']['order_number'],
+			  carrier_service_code: new_order['order']['carrier_service_code'],
+			  customer_id: customer_prefixes.find { |s| new_order['order']['order_number'].include? s },
 	          ship_to: new_order['order']['destination']['name'],
 	          postcode: new_order['order']['destination']['post_code'],
 	          suburb: new_order['order']['destination']['suburb'],
@@ -86,26 +96,52 @@ class Order < ApplicationRecord
 
 	        shipping_fee = 0.0
 	        new_order['order']['packages'].each do |order_package|
-				order_package = OrderPackage.create!(
+				new_order_package = OrderPackage.create!(
 					package_id: order_package['package_id'],
-					order_number: order_number[0],
+					order_number: order.order_number,
 					weight: order_package['weight'],
 					length: order_package['length'],
 					width: order_package['width'],
 					height: order_package['height']
 				)
-				i = 0
-				WEIGHT_RANGE.each do |weight|
-					if order_package.weight >= weight['low'] && order_package.weight <= weight['high']
-					  order_package.update!(
-					      weight_band: i
-					    )
-					end
-					i += 1
-        		end
+				# i = 0
+				# WEIGHT_RANGE.each do |weight|
+				# 	if new_order_package.weight >= weight['low'] && new_order_package.weight <= weight['high']
+				# 	  new_order_package.update!(
+				# 	      weight_band: i
+				# 	    )
+				# 	end
+				# 	i += 1
+        		# end
+        		
+	        	data = {
+	        		"destination": {
+		              "street": new_order['order']['destination']['street'],
+		              "suburb": new_order['order']['destination']['suburb'],
+		              "city": "",
+		              "state": new_order['order']['destination']['state'],
+		              "post_code": new_order['order']['destination']['post_code'],
+		              "country_code": "AU"
+		            },
+		            "packages": [
+		            	{
+		            		"weight": order_package['weight']
+		            	}
+		            ]
+		        }
 
-        		carrier_rate = CarrierRate.where(:weight_band => order_package.weight_band, :zone => find_zone(order.postcode), :carrier_product_code => order.carrier_service_code).first
-        		shipping_fee += carrier_rate.rate * (1 + PRICE_TIER[customer[:tier].to_f])
+		        rates = starshipit_service.get_rates(data)
+		        if rates['success']
+		            #check carrier_service_code
+		            rates['rates'].each do |rate|
+			        	if rate['service_code'] == new_order['order']['carrier_service_code']
+			                shipping_fee += rate['total_price'].to_f * (1 + PRICE_TIER[customer[:tier].to_f])
+			            end
+		            end
+				end
+
+        		# carrier_rate = CarrierRate.where(:weight_band => new_order_package.weight_band, :zone => find_zone(order.postcode), :carrier_product_code => order.carrier_service_code).first
+        		# shipping_fee += carrier_rate.rate * (1 + PRICE_TIER[customer[:tier].to_f])
   			end
 
   			order.update!(

@@ -5,7 +5,7 @@
 
 # Example:
 #
-# set :output, "/path/to/my/cron_log.log"
+set :output, "log/cron_log.log"
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
@@ -21,7 +21,7 @@ every 1.day, at: '4:30 am' do
   runner "Order.fetch_new_shipped_orders"
 end
 
-every 5.seconds do
+every 1.minute do
   runner "Order.get_individaul_order"
 end
 

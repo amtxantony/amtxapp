@@ -10,16 +10,18 @@ class OrderController < ApplicationController
   end
 
   def get_order
-  	# starshipit_service = StarshipitService.new()                                             
-  	# @order = starshipit_service.get_order(params[:order_number])
-    orders = Order.new
-    orders.fetch_new_shipped_orders
+  	#starshipit_service = StarshipitService.new()
+    #starshipit_service.fetch_shipped_orders(0)        
+  	#@order = starshipit_service.get_order(params[:order_number])
+    # orders = Order.new
+    # orders.fetch_new_shipped_orders
+    #orders.get_individaul_order
+    #puts orders.find_zone(3139)
   end
 
 
 
   def bills_orders
-  	
   	respond_to do |format|
       format.xlsx {
         xlsx_package = Axlsx::Package.new
