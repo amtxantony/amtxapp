@@ -5,7 +5,7 @@ ruby "3.2.0"
 
 gem "roo", "~> 2.10.0"
 
-gem 'mysql2'
+#gem 'mysql2'
 
 gem 'whenever', require: false
 
