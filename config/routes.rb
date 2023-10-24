@@ -12,6 +12,12 @@ Rails.application.routes.draw do
 
   resources :customers
   resources :sessions, only: [:new, :create, :destroy]
+
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :users
+  #root 'users#index'
+
+
   resources :dashboard, only: [:home]
 
   resources :bills do
@@ -28,6 +34,6 @@ Rails.application.routes.draw do
     end
   end
 
-  #root 'sessions#new'
-  root 'dashboard#home'
+  root 'sessions#new'
+  #root 'dashboard#home'
 end

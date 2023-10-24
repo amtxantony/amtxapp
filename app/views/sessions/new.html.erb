@@ -6,19 +6,25 @@
       <div class="card-body">
         <h2 class="card-title text-center">Login</h2>
 
-        <%= form_for :session, url: login_path do |f| %>
-          <div class="mb-3">
-            <%= f.label :username, class: 'form-label' %>
-            <%= f.text_field :username, class: 'form-control', required: true %>
-          </div>
 
-          <div class="mb-3">
-            <%= f.label :password, class: 'form-label' %>
-            <%= f.password_field :password, class: 'form-control', required: true %>
-          </div>
+<%= form_with(url: sessions_path, local: true) do |form| %>
+<div class="mb-3">
+  <%= form.label :email, class: 'form-label' %>
+  <%= form.email_field :email, class: 'form-control', required: true %>
+  </div>
+<div class="mb-3">
+  <%= form.label :password, class: 'form-label' %>
+  <%= form.password_field :password, class: 'form-control', required: true %>
+</div>
+  <%= form.submit 'Log in', class: 'btn btn-primary btn-block' %>
+<% end %>
 
-          <%= f.submit 'Login', class: 'btn btn-primary btn-block' %>
-        <% end %>
+
+
+
+
+
+
       </div>
     </div>
   </div>
