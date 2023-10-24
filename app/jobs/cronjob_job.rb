@@ -140,15 +140,14 @@ class CronjobJob < ApplicationJob
 
             # carrier_rate = CarrierRate.where(:weight_band => new_order_package.weight_band, :zone => find_zone(order.postcode), :carrier_product_code => order.carrier_service_code).first
             # shipping_fee += carrier_rate.rate * (1 + PRICE_TIER[customer[:tier].to_f])
-            order.update!(
-              handling_fee: handling_fee,
-              shipping_fee: shipping_fee,
-              status: ORDER_STATUS['calculated']
-            )
           end
 
         end
-
+        order.update!(
+          handling_fee: handling_fee,
+          shipping_fee: shipping_fee,
+          status: ORDER_STATUS['calculated']
+        )
        
     end
   end
