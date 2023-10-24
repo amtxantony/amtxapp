@@ -14,14 +14,14 @@
     <tbody>
       <% @orders.each do |order| %>
         <tr id="<%= order.id %>">
-		  <td><input id="<%="#{order.id}"%>" type="checkbox" /></td>
-		  <td><%= order.order_number %></td>
-		  <td><%= order.customer_id %></td>
-		  <td><%= ORDER_STATUS[order.status] %></td>
-		  <td><%= order.postcode %></td>
-		  <td><%= order.handling_fee %></td>
-		  <td><%= order.shipping_fee %></td>
-		</tr>
+    		  <td><input id="<%="#{order.id}"%>" type="checkbox" /></td>
+    		  <td><%= order.order_number %></td>
+    		  <td><%= order.customer_id %></td>
+    		  <td><%= ORDER_STATUS.key(order.status) %></td>
+    		  <td><%= order.postcode %></td>
+    		  <td><%= order.handling_fee %></td>
+    		  <td><%= order.shipping_fee %></td>
+    		</tr>
       <% end %>
     </tbody>
     <tr>
