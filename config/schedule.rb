@@ -18,11 +18,11 @@ set :output, "log/cron_log.log"
 # end
 
 every 1.day, at: '4:30 am' do
-  runner "CronjobJob.fetch_new_shipped_orders"
+  runner "CronjobJob.new.fetch_new_shipped_orders"
 end
 
 every 1.minute do
-  runner "CronjobJob.get_individaul_order"
+  runner "CronjobJob.new.get_individaul_order" 
 end
 
 # Learn more: http://github.com/javan/whenever

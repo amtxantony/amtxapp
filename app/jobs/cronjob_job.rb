@@ -2,6 +2,7 @@ class CronjobJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
+    puts "here"
     # Do something later
   end
 
@@ -50,10 +51,10 @@ class CronjobJob < ApplicationJob
 
           order.update(
             order_source: new_order['order']['reference'],
-        order_date: new_order['order']['order_date'],  
-        order_number: new_order['order']['order_number'],
-        carrier_service_code: new_order['order']['carrier_service_code'],
-        customer_id: customer_prefixes.find { |s| new_order['order']['order_number'].include? s },
+            order_date: new_order['order']['order_date'],  
+            order_number: new_order['order']['order_number'],
+            carrier_service_code: new_order['order']['carrier_service_code'],
+            customer_id: customer_prefixes.find { |s| new_order['order']['order_number'].include? s },
             ship_to: new_order['order']['destination']['name'],
             postcode: new_order['order']['destination']['post_code'],
             suburb: new_order['order']['destination']['suburb'],
@@ -171,5 +172,5 @@ class CronjobJob < ApplicationJob
 
       return zone
     end
-  
+
 end
