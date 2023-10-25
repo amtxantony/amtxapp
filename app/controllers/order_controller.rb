@@ -1,4 +1,5 @@
 class OrderController < ApplicationController
+  before_action :to_login_if_no_session
   def index
     @orders = Order.order('id desc').paginate(page: params[:page], per_page: 100)
   end

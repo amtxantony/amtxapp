@@ -4,14 +4,13 @@ Rails.application.routes.draw do
   resources :bills
   get 'dashboard/home'
   get 'sessions/new'
-  get 'sessions/create'
+  post 'sessions/create'
   get 'sessions/destroy'
   get 'transport/all_bookings'
   get 'transport/container_timeslot'
   get 'transport/export_bookings'
 
   resources :customers
-  resources :sessions, only: [:new, :create, :destroy]
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :users
@@ -34,6 +33,6 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'sessions#new'
+  #root 'sessions#new'
   #root 'dashboard#home'
 end

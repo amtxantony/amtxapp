@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-	before_action :to_login_if_no_session
 	helper_method :current_user, :logged_in? 
 
 

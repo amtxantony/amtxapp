@@ -1,5 +1,6 @@
 class CustomerRatecardsController < ApplicationController
   before_action :set_customer_ratecard, only: %i[ show edit update destroy ]
+  before_action :to_login_if_no_session
 
   # GET /customer_ratecards or /customer_ratecards.json
   def index

@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  before_action :to_login_if_no_session
   def home
     
   end

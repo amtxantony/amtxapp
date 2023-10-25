@@ -1,5 +1,6 @@
 class CarrierRatesController < ApplicationController
   before_action :set_carrier_rate, only: %i[ show edit update destroy ]
+  before_action :to_login_if_no_session
 
   # GET /carrier_rates or /carrier_rates.json
   def index
