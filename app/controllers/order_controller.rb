@@ -1,6 +1,8 @@
 require 'csv'
 class OrderController < ApplicationController
   before_action :to_login_if_no_session
+  protect_from_forgery except: :order_details
+
   def index
     @orders = Order.order('order_date desc').paginate(page: params[:page], per_page: 100)
     @customers = Customer.all
@@ -28,6 +30,14 @@ class OrderController < ApplicationController
     order.get_individaul_order(params[:order_id])
     
     redirect_to :action=>"index"
+  end
+
+  def order_details
+    @order = Order.find(params[:id])
+
+    # respond_to do |format|
+    #   format.js # This will look for a file named order_details.js.erb
+    # end
   end
 
   def bulk_cal_packm_prices

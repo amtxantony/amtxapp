@@ -7,15 +7,15 @@
       <table>
         <tr>
           <td>Date from: &nbsp;</td>
-          <td><input type='text' class="form-control form-control-sm" name="dfrom" placeholder="YYYY-MM-DD" /></td>
+          <td><input type='text' class="form-control form-control-sm" name="dfrom" placeholder="YYYY-MM-DD" value="<%= params[:dfrom] != "" ? params[:dfrom] : '' %>" /></td>
           <td>&nbsp;Date To:&nbsp;</td>
-          <td><input type='text' class="form-control form-control-sm" name="dto" placeholder="YYYY-MM-DD" /></td>
+          <td><input type='text' class="form-control form-control-sm" name="dto" placeholder="YYYY-MM-DD" value="<%= params[:dto] != "" ? params[:dto] : '' %>" /></td>
           <td>&nbsp;Customer:&nbsp;</td>
           <td>
             <select class="form-select form-select-sm" name="ocustomer">
               <option value="">--select a customer--</option>
               <% customers.each do |customer| %>
-                <option value="<%=customer.order_no_prefix %>"><%=customer.name%></option>
+                <option value="<%=customer.order_no_prefix %>"  <%= params[:ocustomer] != "" && params[:ocustomer] == customer.order_no_prefix ? 'selected' : '' %>><%=customer.name%></option>
               <% end %>
             </select>
           </td>
@@ -23,9 +23,9 @@
           <td>
             <select class="form-select form-select-sm" name="ostatus">
               <option value="">--select a order status--</option>
-              <option value="<%=ORDER_STATUS['fetched']%>"><%= ORDER_STATUS.key(0) %></option>
-              <option value="<%=ORDER_STATUS['calculated']%>"><%= ORDER_STATUS.key(1) %></option>
-              <option value="<%=ORDER_STATUS['billed']%>"><%= ORDER_STATUS.key(2) %></option>
+              <option value="<%=ORDER_STATUS['fetched']%>" <%= params[:ostatus] != "" && params[:ostatus].to_i == ORDER_STATUS['fetched'] ? 'selected' : '' %>><%= ORDER_STATUS.key(0) %></option>
+              <option value="<%=ORDER_STATUS['calculated']%>" <%= params[:ostatus] != "" && params[:ostatus].to_i == ORDER_STATUS['calculated'] ? 'selected' : '' %>><%= ORDER_STATUS.key(1) %></option>
+              <option value="<%=ORDER_STATUS['billed']%>" <%= params[:ostatus] != "" && params[:ostatus].to_i == ORDER_STATUS['billed'] ? 'selected' : '' %>><%= ORDER_STATUS.key(2) %></option>
             </select>
           </td>
           <td>&nbsp;</td>
@@ -69,7 +69,14 @@
     		  <td><%= order.handling_fee %></td>
           <td><%= order.packm_price %></td>
     		  <td><%= order.shipping_fee %></td>
-          <td><%= link_to 'Get order info', {:action => 'get_order', :order_id => order.id},{:class=>"btn btn-primary btn-sm"} %></td>
+          <td>
+            <% if order.status == ORDER_STATUS['fetched'] %>
+              <%= link_to 'Sync order', {:action => 'get_order', :order_id => order.id},{:class=>"btn btn-success btn-sm"} %>
+            <% else %>
+              <%#= link_to 'Order Details', order_order_details_path(id: order.id), remote: true, :class=>"btn btn-primary btn-sm" %>
+              <%= link_to 'Order Details', order_order_details_path(id: order.id), :class=>"btn btn-primary btn-sm" %>
+            <% end %>
+          </td>
     		</tr>
       <% end %>
     </tbody>
@@ -82,3 +89,17 @@
     </tr>
   </table>
 </div>
+
+<!-- <div id="order-details-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Order Details</h4>
+      </div>
+      <div class="modal-body" id="order-details-content">
+        <!-- Order details will be inserted here via AJAX -->
+      </div>
+    </div>
+  </div>
+</div> -->

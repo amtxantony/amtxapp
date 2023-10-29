@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'transport/export_bookings'
   get 'order/filtered_orders'
   get 'order/export_orders', defaults: { format: :csv }
+  get 'order/order_details' #, defaults: { format: :js }
 
   resources :customers
 
@@ -31,8 +32,6 @@ Rails.application.routes.draw do
 
   resources :order do
     collection do
-      #post :generate_ecommerce_bills
-      
       get :index, :upload_orders, :bills_orders, :get_order,:bulk_cal_packm_prices
     end
   end

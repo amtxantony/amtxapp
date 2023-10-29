@@ -1,0 +1,107 @@
+<!-- app/views/orders/_order_details.html.erb -->
+
+<div class="card">
+  	<div class="card-header">
+    	Order Info
+  	</div>
+  	<div class="card-body">
+		<table class="table table-hover table-bordered table-condensed">
+  				<tr>
+  					<td><strong>Order Number</strong></td>
+  					<td><%= order.order_number %></td>
+  					<td><strong>Order Reference</strong></td>
+  					<td><%= order.order_source %></td>
+  				</tr>
+  				<tr>
+  					<td><strong>Order Date</strong></td>
+  					<td><%= order.order_date %></td>
+  					<td><strong>Carrier Service Code</strong></td>
+  					<td><%= order.carrier_service_code %></td>
+  				</tr>
+  				<tr>
+  					<td><strong>Ship to</strong></td>
+  					<td><%= order.ship_to %></td>
+  					<td><strong>Postcode</strong></td>
+  					<td><%= order.postcode %></td>
+  				</tr>
+  				<tr>
+  					<td><strong>Address</strong></td>
+  					<td><%= order.address %></td>
+  					<td><strong>Suburb</strong></td>
+  					<td><%= order.suburb %></td>
+  				</tr>
+  				<tr>
+  					<td><strong>State</strong></td>
+  					<td><%= order.state %></td>
+  					<td><strong>Country</strong></td>
+  					<td><%= order.country %></td>
+  				</tr>
+  				<tr>
+  					<td><strong>Handling Fee</strong></td>
+  					<td><%= order.handling_fee %></td>
+  					<td><strong>Shipping Fee</strong></td>
+  					<td><%= order.shipping_fee %></td>
+  				</tr>
+  				<tr>
+  					<td><strong>Packing Material Fee</strong></td>
+  					<td><%= order.packm_price %></td>
+  					<td><strong>Order Status</strong></td>
+  					<td><%= order.status %></td>
+  				</tr>
+  		</table>
+	</div>
+
+
+</div>
+<div class="card" style="margin-top:20px;">
+  	<div class="card-header">
+    	Order Items
+  	</div>
+  	<div class="card-body">
+  		<table class="table table-hover table-bordered table-condensed">
+  			<tr>
+  				<th>#</th>
+  				<th>SKU</th>
+  				<th>Item Description</th>
+  				<th>Quantity</th>
+  			</tr>
+  			<% i=1 %>
+  			<% order.order_items.each do |order_item| %>
+  				<tr>
+  					<td><%= i %></td>
+  					<td><%= order_item.item_SKU %></td>
+  					<td><%= order_item.item_description %></td>
+  					<td><%= order_item.quantity %></td>
+  				</tr>
+  				<% i+=1 %>
+  			<% end %>
+  		</table>
+	</div>
+</div>
+<div class="card" style="margin-top:20px;">
+  	<div class="card-header">
+    	Order Packages
+  	</div>
+  	<div class="card-body">
+  		<table class="table table-hover table-bordered table-condensed">
+  			<tr>
+  				<th>#</th>
+  				<th>Weight</th>
+  				<th>Length</th>
+  				<th>Width</th>
+  				<th>Height</th>
+  			</tr>
+  			<% i=1 %>
+  			<% order.order_packages.each do |order_package| %>
+  				<tr>
+  					<td><%= i %></td>
+  					<td><%= order_package.weight %></td>
+  					<td><%= order_package.length %></td>
+  					<td><%= order_package.width %></td>
+  					<td><%= order_package.height %></td>
+  				</tr>
+  				<% i+=1 %>
+  			<% end %>
+  		</table>
+	</div>
+</div>
