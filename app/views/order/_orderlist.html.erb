@@ -1,0 +1,84 @@
+<div class="card">
+  <div class="card-header">
+    Filters
+  </div>
+  <div class="card-body">
+    <%= form_tag("/order/filtered_orders" ,:method => 'get', :remote => false) do -%>
+      <table>
+        <tr>
+          <td>Date from: &nbsp;</td>
+          <td><input type='text' class="form-control form-control-sm" name="dfrom" placeholder="YYYY-MM-DD" /></td>
+          <td>&nbsp;Date To:&nbsp;</td>
+          <td><input type='text' class="form-control form-control-sm" name="dto" placeholder="YYYY-MM-DD" /></td>
+          <td>&nbsp;Customer:&nbsp;</td>
+          <td>
+            <select class="form-select form-select-sm" name="ocustomer">
+              <option value="">--select a customer--</option>
+              <% customers.each do |customer| %>
+                <option value="<%=customer.order_no_prefix %>"><%=customer.name%></option>
+              <% end %>
+            </select>
+          </td>
+          <td>&nbsp;Status:&nbsp;</td>
+          <td>
+            <select class="form-select form-select-sm" name="ostatus">
+              <option value="">--select a order status--</option>
+              <option value="<%=ORDER_STATUS['fetched']%>"><%= ORDER_STATUS.key(0) %></option>
+              <option value="<%=ORDER_STATUS['calculated']%>"><%= ORDER_STATUS.key(1) %></option>
+              <option value="<%=ORDER_STATUS['billed']%>"><%= ORDER_STATUS.key(2) %></option>
+            </select>
+          </td>
+          <td>&nbsp;</td>
+          <td>
+            <input type="submit" class="btn btn-primary btn-sm" name="filter" value="Filter">
+          </td>
+        </tr>
+      </table>
+    <% end -%>
+  </div>
+</div>
+<div class="content container-fluid" style="padding:10px 0px;">
+    <%=link_to "Apply Packing Material Fees", {:action=>"bulk_cal_packm_prices"}, {:class=>"btn btn-primary btn-sm"}%>
+    <%= link_to 'Export filtered orders  to CSV', order_export_orders_path(format: :csv, :order_ids => "#{orders.pluck(:id).join(',')}"), {:class => "btn btn-primary btn-sm" } %>
+</div>
+<div id="orders">
+  <table class="table table-hover table-striped table-condensed">
+    <thead>
+      <tr>
+        <!-- <th scope="col"><input id="select_all" type="checkbox" /></th> -->
+        <th scope="col">Order Number</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Customer Prefix</th>
+        <th scope="col">Status</th>
+        <th scope="col">Postcode</th>
+        <th scope="col">Handling Fee</th>
+        <th scope="col">Packm Fee</th>
+        <th scope="col">Shipping Fee</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% orders.each do |order| %>
+        <tr id="<%= order.id %>">
+    		  <!-- <td><input id="order#<%#="#{order.id}"%>" type="checkbox" /></td> -->
+    		  <td><%= order.order_number %></td>
+          <td><%= order.order_date %></td>
+    		  <td><%= order.customer_id %></td>
+    		  <td><%= ORDER_STATUS.key(order.status) %></td>
+    		  <td><%= order.postcode %></td>
+    		  <td><%= order.handling_fee %></td>
+          <td><%= order.packm_price %></td>
+    		  <td><%= order.shipping_fee %></td>
+          <td><%= link_to 'Get order info', {:action => 'get_order', :order_id => order.id},{:class=>"btn btn-primary btn-sm"} %></td>
+    		</tr>
+      <% end %>
+    </tbody>
+    <tr>
+    	<td colspan="9">
+        <% if params[:action] != "filtered_orders" %>
+    		  <%= will_paginate orders %>
+        <% end %>
+    	</td>
+    </tr>
+  </table>
+</div>

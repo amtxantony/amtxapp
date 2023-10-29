@@ -1,9 +1,9 @@
 <header class="py-3 mb-3 border-bottom">
   <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-    <div class="col-3">
+    <div class="col-2">
       <%=image_tag("amtxlogisticslogo.png", :style=>"height:50px;")%>
     </div>
-    <div class="col-9" style="text-align: right;">
+    <div class="col-10" style="text-align: right;">
       <% if logged_in? %>
         <%= link_to 'Log out', :controller=>"sessions",:action=>"destroy", method: :delete %>
       <% else %>

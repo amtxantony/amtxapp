@@ -9,15 +9,21 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
     <!-- Favicons -->
-<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
+    <!-- <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#712cf9"> -->
 
 
     <style>
@@ -112,69 +118,7 @@
     <div class="content container-fluid">
       <div class="row justify-content-start">
         <div class="col-2">
-          <div class="flex-shrink-0 p-3" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
-              <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-              <span class="fs-5 fw-semibold">MENU</span>
-            </a>
-            <ul class="list-unstyled ps-0">
-              <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#bill-collapse" aria-expanded="false">
-                  Bills
-                </button>
-                <div class="collapse" id="bill-collapse">
-                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li>
-                      <%=link_to "eCommerce Bills", {:controller => "bills", :action => "index"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
-                    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Ad Hoc Job Bills</a></li>
-                    <li>
-                      <%=link_to "eCommerce Orders", {:controller => "order", :action => "index"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
-                  </ul>
-                </div>
-              </li>
-              
-               <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#tm-collapse" aria-expanded="false">
-                  Transport Management
-                </button>
-                <div class="collapse" id="tm-collapse">
-                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tracking</a></li>
-                    <li>
-                      <%=link_to "Transport Bookings", {:controller => "transport", :action => "all_bookings"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
-                    <li><%=link_to "Container Timeslot", {:controller => "transport", :action => "container_timeslot"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
-                    <li><%=link_to "Export Bookings", {:controller => "transport", :action => "export_bookings"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                  Data Sync
-                </button>
-                <div class="collapse" id="orders-collapse">
-                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">iWMS Sync</a></li>
-                    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sendable Sync</a></li>
-                    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Starshipit to Cartoncloud</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="border-top my-3"></li>
-              <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                  Settings
-                </button>
-                <div class="collapse" id="account-collapse">
-                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="/customers" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Customers</a></li>
-                    <li><a href="/customer_ratecards" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Customer RateCards</a></li>
-                    <li><a href="/carrier_rates" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Carriers</a></li>
-                    <li><a href="/users" class="link-body-emphasis d-inline-flex text-decoration-none rounded">User</a></li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
+          <%=render :partial=>'shared/leftbar' %>
         </div>
         <div class="col-10">
           <%= yield %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_080829) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_28_104052) do
   create_table "bills", force: :cascade do |t|
     t.integer "customer_id"
     t.datetime "start_date"
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_080829) do
     t.string "tier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "packm"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -110,6 +111,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_080829) do
     t.decimal "handling_fee"
     t.decimal "shipping_fee"
     t.integer "status"
+    t.float "packm_price", default: -1.0
+  end
+
+  create_table "pack_materials", force: :cascade do |t|
+    t.string "name"
+    t.string "size"
+    t.float "price"
+    t.float "maxcube"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shipments", force: :cascade do |t|

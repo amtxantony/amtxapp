@@ -3,12 +3,45 @@
 <h1>Customer ratecards</h1>
 
 <div id="customer_ratecards">
-  <% @customer_ratecards.each do |customer_ratecard| %>
-    <%= render customer_ratecard %>
-    <p>
-      <%= link_to "Show this customer ratecard", customer_ratecard %>
-    </p>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+      <td colspan="17">
+          <%= link_to "New customer ratecard", new_customer_ratecard_path, :class=>"btn btn-primary" %>
+        </td>
+      </tr>
+      <tr>
+        <th>Customer</th>
+        <th>Order fee</th>
+        <th>Handle out fee</th>
+        <th>Band 1 1st</th>
+        <th>Band 1 add</th>
+        <th>Band 2 1st</th>
+        <th>Band 2 add</th>
+        <th>Band 3 1st</th>
+        <th>Band 3 add</th>
+        <th>Band 4 1st</th>
+        <th>Band 4 add</th>
+        <th>Band 5 1st</th>
+        <th>Band 5 add</th>
+        <th>Band 6 1st</th>
+        <th>Band 6 add</th>
+        <th>Band 6 extra per kg</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customer_ratecards.each do |customer_ratecard| %>
+    <tr>
+      <%= render customer_ratecard %>
+      <td>
+        <%= link_to "Show this customer ratecard", customer_ratecard %>
+      </td>
+    </tr>
   <% end %>
+    </tbody>
+  </table>
+  
 </div>
 
-<%= link_to "New customer ratecard", new_customer_ratecard_path %>
+

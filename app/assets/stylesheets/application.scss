@@ -18,3 +18,7 @@ $primary: #3498db; // Calm blue color
 $secondary: #ecf0f1; // Light grey background
 
 @import "bootstrap";
+
+.table-condensed{
+	font-size: 11px!important;
+}

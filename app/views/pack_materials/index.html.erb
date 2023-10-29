@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<table class="table table-hover table-striped table-sm table-condensed">
+  <thead>
+    <tr>
+      <td colspan="3"><h3>Pack materials</h3></td>
+      <td colspan="2" style="text-align: right;"><%= link_to "New pack material", new_pack_material_path, :class=> "btn btn-primary btn-sm" %></td>
+    </tr>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Size</th>
+      <th scope="col">Price</th>
+      <th scope="col">Maxcube</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pack_materials.each do |pack_material| %>
+      <%= render pack_material %>
+    <% end %>
+  </tbody>
+</table>

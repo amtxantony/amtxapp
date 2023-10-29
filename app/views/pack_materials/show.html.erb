@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @pack_material %>
+
+<div>
+  <%= link_to "Edit this pack material", edit_pack_material_path(@pack_material) %> |
+  <%= link_to "Back to pack materials", pack_materials_path %>
+
+  <%= button_to "Destroy this pack material", @pack_material, method: :delete %>
+</div>
