@@ -88,7 +88,7 @@ class OrderController < ApplicationController
               },
               "packages": [
                 {
-                  "weight": order_package.weight
+                  "weight": params[:package_weight]
                 }
               ]
           }
