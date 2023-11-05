@@ -95,7 +95,17 @@
   			<% order.order_packages.each do |order_package| %>
   				<tr>
   					<td><%= i %></td>
-  					<td><%= order_package.weight %></td>
+  					<td>
+  						<% if order_package.weight == 0 %>
+	  						<form action="/order/update_order_package_weight" method="post">
+	  							<input type="hidden" name="order_package_id" value="<%= order_package.id %>">
+	  							<input type="text" name="package_weight" class="form-control form-control-sm" value="<%=order_package.weight%>" />
+	  							<button class="btn btn-sm btn-primary" type="submit">Update</button>
+	  						</form>
+  						<% else %>
+  							<%= order_package.weight %>
+  						<% end %>
+  					</td>
   					<td><%= order_package.length %></td>
   					<td><%= order_package.width %></td>
   					<td><%= order_package.height %></td>
@@ -103,5 +113,36 @@
   				<% i+=1 %>
   			<% end %>
   		</table>
+	</div>
+</div>
+<div class="card" style="margin-top:20px;">
+  	<div class="card-header">
+    	Order Vendor
+  	</div>
+  	<div class="card-body">
+  		<form action="/order/update_order" method="post">
+	  		<table class="table table-hover table-bordered table-condensed">
+	  			<tr>
+	  				<th>Vendor</th>
+	  				<th>Action</th>
+	  			</tr>
+  				<tr>
+  					<% if order.customer_id.nil? %>
+	  					<td>
+	  						<select name="customer_prefix" class="form-select form-select-sm">
+	  							<% @customers.each do |customer| %>
+	  								<option value="<%=customer.order_no_prefix%>"><%=customer.name %></option>
+	  							<% end %>
+	  						</select>
+	  						<input type="hidden" name="order_id" value="<%= order.id %>">
+	  					</td>
+	  					<td><button class="btn btn-primary btn-sm" type="submit">Update</button></td>
+  					<% else %>
+	  					<td><%= @customers.select{ |c| c.order_no_prefix == order.customer_id }.first.name %></td>
+	  					<td><button class="btn btn-sm" type="submit" disabled>Update</button></td>
+					<% end %>
+  				</tr>
+	  		</table>
+  		</form>
 	</div>
 </div>

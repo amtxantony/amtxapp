@@ -21,6 +21,20 @@
   </div>
 
   <div>
+    <%= form.label :level, style: "display: block" %>
+    <%= form.text_field :level %>
+    <p>
+      <% 
+        role_text = ""
+        USER_ROLE.keys.each do |role|
+          role_text += "#{role}: #{USER_ROLE[role]},"
+        end 
+      %>
+      <%=role_text%>
+    </p>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

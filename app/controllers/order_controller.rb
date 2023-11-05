@@ -22,22 +22,99 @@ class OrderController < ApplicationController
     # orders = Order.all
     # orders.each do |order|
     #   order.update(:customer_id => ['#420_'].find { |s| order[:order_number].include? s })
-    # end                                                                        
+    # end 
+
+    data = {
+        "destination": {
+            "street": "some street",
+            "suburb": "",
+            "city": "",
+            "state": "",
+            "post_code": "6027",
+            "country_code": "AU"
+          },
+          "packages": [
+            {
+              "weight": 17
+            }
+          ]
+      }
+      starshipit_service = StarshipitService.new()
+      rates = starshipit_service.get_rates(data)
+
+      puts rates
+
   end
 
   def get_order       
   	order = Order.new
-    order.get_individaul_order(params[:order_id])
-    
-    redirect_to :action=>"index"
+    order.get_individaul_order(params[:order_id], false)
+
+    if params[:page]
+      redirect_to :action=>"index", :page => params[:page]
+    else
+      redirect_to :action=>"index"
+    end
+  end
+
+  def update_order
+    order = Order.find(params[:order_id])
+    order.update!(:customer_id => params[:customer_prefix])
+
+    order.get_individaul_order(params[:order_id], true)
+    order.update!(:customer_id => params[:customer_prefix])
+
+    redirect_to :action => "order_details", :id=>params[:order_id]
+  end
+
+  def update_order_package_weight
+    order_package = OrderPackage.find(params[:order_package_id])
+    order = Order.find_by_order_number(order_package.order_number)
+
+    if params[:package_weight] && params[:package_weight].to_f > 0
+      customer = Customer.find_by_order_no_prefix(order.customer_id)
+      shipping_fee = order.shipping_fee
+
+      if customer
+        starshipit_service = StarshipitService.new()
+        data = {
+            "destination": {
+                "street": order.address,
+                "suburb": order.suburb,
+                "city": order.city,
+                "state": order.state,
+                "post_code": order.postcode,
+                "country_code": "AU"
+              },
+              "packages": [
+                {
+                  "weight": order_package.weight
+                }
+              ]
+          }
+        rates = starshipit_service.get_rates(data)
+        if rates['success']
+          rates['rates'].each do |rate|
+              if rate['service_code'] == order.carrier_service_code
+                puts rate
+                  shipping_fee += rate['total_price'].to_f * (1 + PRICE_TIER[customer.tier.to_f])
+              end
+          end
+        end
+
+        order_package.update!(:weight => params[:package_weight].to_f)
+        order.update!(
+            shipping_fee: shipping_fee
+          )
+      end
+    end
+
+    redirect_to :action => "order_details", :id=>order.id
   end
 
   def order_details
     @order = Order.find(params[:id])
-
-    # respond_to do |format|
-    #   format.js # This will look for a file named order_details.js.erb
-    # end
+    @customers = Customer.all
   end
 
   def bulk_cal_packm_prices

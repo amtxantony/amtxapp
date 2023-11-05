@@ -1,14 +1,25 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Users</h1>
 
 <div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
+  <table class="table table-hover table-striped table-sm table-condensed">
+    <thead>
+      <tr>
+        <td colspan="2"><h3>Users</h3></td>
+        <td colspan="1" style="text-align: right;"><%= link_to "New user", new_user_path, :class=> "btn btn-primary btn-sm" %></td>
+      </tr>
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Shipping Price Tier</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <%= render user %>
+      <% end %>
+    </tbody>
+  </table>
+  
 </div>
 
-<%= link_to "New user", new_user_path %>

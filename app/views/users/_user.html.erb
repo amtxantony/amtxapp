@@ -1,2 +1,5 @@
-<div id="<%= dom_id user %>">
-</div>
+<tr id="<%= dom_id user %>">
+	<td><%=user.email%></td>
+	<td><%=USER_ROLE.key(user.level)%></td>
+	<td><%= link_to "Show this user", user %></td>
+</tr>

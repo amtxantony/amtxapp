@@ -46,33 +46,34 @@ class Order < ApplicationRecord
 		end
   	end
 
-  	def get_individaul_order(order_id)
+  	def get_individaul_order(order_id, check_update)
   		order = Order.find(order_id)
   		customer_prefixes = Customer.all.pluck(:order_no_prefix)
-
   		starshipit_service = StarshipitService.new()
+
   		if order 			
   			new_order = starshipit_service.get_order(order.order_number)
 
-	        order.update(
-	          order_source: new_order['order']['reference'],
-	          order_date: new_order['order']['order_date'],  
-	          order_number: new_order['order']['order_number'],
-	          carrier_service_code: new_order['order']['carrier_service_code'],
-	          customer_id: customer_prefixes.find { |s| new_order['order']['order_number'].include? s },
-	          ship_to: new_order['order']['destination']['name'],
-	          postcode: new_order['order']['destination']['post_code'],
-	          suburb: new_order['order']['destination']['suburb'],
-	          address: new_order['order']['destination']['street'],
-	          #city: new_order['order']['destination'][''],
-	          state: new_order['order']['destination']['state'],
-	          country: new_order['order']['destination']['Australia']
-	        )
+  			unless check_update
+		    	order.update(
+		          order_source: new_order['order']['reference'],
+		          order_date: new_order['order']['order_date'],  
+		          order_number: new_order['order']['order_number'],
+		          carrier_service_code: new_order['order']['carrier_service_code'],
+		          customer_id: customer_prefixes.find { |s| new_order['order']['order_number'].include? s },
+		          ship_to: new_order['order']['destination']['name'],
+		          postcode: new_order['order']['destination']['post_code'],
+		          suburb: new_order['order']['destination']['suburb'],
+		          address: new_order['order']['destination']['street'],
+		          state: new_order['order']['destination']['state'],
+		          country: new_order['order']['destination']['Australia']
+		        )
+		    end
 
 	        handling_fee = 0.0
 	        shipping_fee = 0.0
 
-	        if customer_prefixes.find { |s| new_order['order']['order_number'].include? s }
+	        if customer_prefixes.include?(order.customer_id)
 	          rate_card = CustomerRatecard.find_by_customer_id(order.customer_id)
 	          customer = Customer.find_by_order_no_prefix(order.customer_id)
 

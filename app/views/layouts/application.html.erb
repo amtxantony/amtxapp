@@ -88,7 +88,7 @@
     <div class="content container-fluid">
       <div class="row justify-content-start">
         <div class="col-2">
-          <%=render :partial=>'shared/leftbar' %>
+          <%=render :partial=>'shared/leftbar',:locals=>{:current_user => @current_user, :admin_role=> USER_ROLE['Admin'],:bookkeeper_role => USER_ROLE['Bookkeeper'], :coodinator_role => USER_ROLE['Coordinator'], :worker_role =>USER_ROLE['Worker'] } %>
         </div>
         <div class="col-10">
           <%= yield %>

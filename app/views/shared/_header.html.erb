@@ -1,15 +1,25 @@
 <header class="py-3 mb-3 border-bottom">
-  <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-    <div class="col-2">
-      <%=image_tag("amtxlogisticslogo.png", :style=>"height:50px;")%>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <%=image_tag("amtxlogisticslogo.png", :style=>"height:50px;")%>
+      </div>
+      <div class="col-6" style="text-align: right;">
+        <span style="font-size:12px;">You currently logged in as: <strong><%= @current_user.email %></strong></span>
+        <a href="http://pm.amtxlogistics.com.au" target="_blank" class="btn btn-primary btn-sm">
+          Project Jobs Management 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.854 8.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707l-4.096 4.096z"/>
+          </svg> 
+        </a>
+        <% if logged_in? %>
+          <%= link_to 'Log out', {:controller=>"sessions",:action=>"destroy", method: :delete}, {:class => "btn btn-primary btn-sm"} %>
+        <% else %>
+          <%= link_to 'Log in', {:controller=>"sessions",:action=>"new"},{:class=>"btn btn-primary btn-sm"} %>
+        <% end %>
+      </div>
     </div>
-    <div class="col-10" style="text-align: right;">
-      <% if logged_in? %>
-        <%= link_to 'Log out', :controller=>"sessions",:action=>"destroy", method: :delete %>
-      <% else %>
-        <%= link_to 'Log in', :controller=>"sessions",:action=>"new" %>
-      <% end %>
-    </div>
+    
     
 
 <!--     <div class="dropdown">

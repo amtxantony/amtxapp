@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'order/filtered_orders'
   get 'order/export_orders', defaults: { format: :csv }
   get 'order/order_details' #, defaults: { format: :js }
+  post 'order/update_order'
+  post 'order/update_order_package_weight'
 
   resources :customers
 
