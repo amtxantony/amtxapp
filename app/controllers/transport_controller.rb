@@ -6,4 +6,6 @@ class TransportController < ApplicationController
 	end
 	def export_bookings
 	end
+	def inbound
+	end
 end

@@ -30,6 +30,8 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tracking</a></li>
             <li>
+              <%=link_to "Inbound Records", {:controller => "transport", :action => "inbound"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
+            <li>
               <%=link_to "Transport Bookings", {:controller => "transport", :action => "all_bookings"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
             <li><%=link_to "Container Timeslot", {:controller => "transport", :action => "container_timeslot"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
             <li><%=link_to "Export Bookings", {:controller => "transport", :action => "export_bookings"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
