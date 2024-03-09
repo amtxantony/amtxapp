@@ -15,7 +15,9 @@
             <li>
               <%=link_to "eCommerce Orders", {:controller => "order", :action => "index"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%>
             </li>
-            
+            <li>
+              <%=link_to "VAS charges", {:controller => "bills", :action => "vasrecords"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%>
+            </li>
           </ul>
         </div>
       </li>

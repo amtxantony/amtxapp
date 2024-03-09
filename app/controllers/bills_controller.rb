@@ -24,6 +24,9 @@ class BillsController < ApplicationController
   def edit
   end
 
+  def vasrecords
+  end
+
   # POST /bills or /bills.json
   def create
     @bill = Bill.new(bill_params)
