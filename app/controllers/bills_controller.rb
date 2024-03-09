@@ -1,6 +1,6 @@
 require 'cgi'
 class BillsController < ApplicationController
-  before_action :set_bill, only: %i[ show edit update destroy ], except: %i[vieworders]
+  before_action :set_bill, only: %i[ show edit update destroy ], except: %i[vieworders vasrecords]
   before_action :to_login_if_no_session
 
   # GET /bills or /bills.json
