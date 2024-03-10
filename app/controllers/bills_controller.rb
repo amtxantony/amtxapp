@@ -1,6 +1,6 @@
 require 'cgi'
 class BillsController < ApplicationController
-  #before_action :set_bill, only: %i[ show edit update destroy ], except: [:vieworders, :vasrecords]
+  before_action :set_bill, only: %i[ show edit update destroy ], except: [:vieworders]
   before_action :to_login_if_no_session
 
   # GET /bills or /bills.json
@@ -24,8 +24,7 @@ class BillsController < ApplicationController
   def edit
   end
 
-  def vasrecords
-  end
+  
 
   # POST /bills or /bills.json
   def create

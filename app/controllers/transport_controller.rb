@@ -8,4 +8,6 @@ class TransportController < ApplicationController
 	end
 	def inbound
 	end
+	def vasrecords
+  	end
 end
