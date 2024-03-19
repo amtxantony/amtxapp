@@ -7,7 +7,7 @@
     
     <% if [admin_role, bookkeeper_role].include?(current_user.level) == true %>
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#bill-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 " data-bs-toggle="collapse" data-bs-target="#bill-collapse" aria-expanded="false">
           Customer Billing
         </button>
         <div class="collapse" id="bill-collapse">
@@ -25,8 +25,8 @@
 
     <% if [admin_role,coodinator_role].include?(current_user.level) == true %>
        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#tm-collapse" aria-expanded="false">
-          Transport Management
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 " data-bs-toggle="collapse" data-bs-target="#tm-collapse" aria-expanded="false">
+          Trans Management
         </button>
         <div class="collapse" id="tm-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -42,14 +42,15 @@
       </li>
     <% end %>
 
-    <% if [admin_role].include?(current_user.level) == true %>
+    <% if [admin_role,coodinator_role].include?(current_user.level) == true %>
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-          Data Sync
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 " data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+          4PL Client System/Data
         </button>
         <div class="collapse" id="orders-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">iWMS Sync</a></li>
+            <li><%=link_to "ACR Supply Chain", {:controller => "transport", :action => "acrrecords"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">JDL</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sendable Sync</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Starshipit to Cartoncloud</a></li>
           </ul>
@@ -57,7 +58,7 @@
       </li>
       <li class="border-top my-3"></li>
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 " data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
           Settings
         </button>
         <div class="collapse" id="account-collapse">

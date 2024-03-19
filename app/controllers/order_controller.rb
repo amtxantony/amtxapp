@@ -30,12 +30,12 @@ class OrderController < ApplicationController
             "suburb": "",
             "city": "",
             "state": "",
-            "post_code": "6027",
+            "post_code": "6171",
             "country_code": "AU"
           },
           "packages": [
             {
-              "weight": 17
+              "weight": 8
             }
           ]
       }

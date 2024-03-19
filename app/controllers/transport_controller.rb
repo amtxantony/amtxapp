@@ -10,4 +10,6 @@ class TransportController < ApplicationController
 	end
 	def vasrecords
   	end
+  	def acrrecords
+  	end
 end

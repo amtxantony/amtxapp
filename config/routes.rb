@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'transport/export_bookings'
   get 'transport/inbound'
   get 'transport/vasrecords'
+  get 'transport/acrrecords'
   get 'order/filtered_orders'
   get 'order/export_orders', defaults: { format: :csv }
   get 'order/order_details' #, defaults: { format: :js }
