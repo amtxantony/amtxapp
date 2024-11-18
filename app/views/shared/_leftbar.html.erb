@@ -8,15 +8,18 @@
     <% if [admin_role, bookkeeper_role].include?(current_user.level) == true %>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 " data-bs-toggle="collapse" data-bs-target="#bill-collapse" aria-expanded="false">
-          Customer Billing
+          4PL Billing
         </button>
         <div class="collapse" id="bill-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+ <!--           <li>
+              <%#=link_to "eCommerce Orders", {:controller => "order", :action => "index"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%>
+            </li> -->
             <li>
-              <%=link_to "eCommerce Orders", {:controller => "order", :action => "index"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%>
+              <%=link_to "ACR Outbound Reports", {:controller => "ob_order", :action => "acr_reports"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%>
             </li>
             <li>
-              <%=link_to "VAS charges", {:controller => "transport", :action => "vasrecords"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%>
+              <%=link_to "OC Outbound Reports", {:controller => "ob_order", :action => "oc_reports"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%>
             </li>
           </ul>
         </div>
@@ -36,13 +39,13 @@
             <li>
               <%=link_to "Transport Bookings", {:controller => "transport", :action => "all_bookings"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
             <li><%=link_to "Container Timeslot", {:controller => "transport", :action => "container_timeslot"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
-            <li><%=link_to "Export Bookings", {:controller => "transport", :action => "export_bookings"}, {:class =>"link-body-emphasis d-inline-flex text-decoration-none rounded"}%></li>
           </ul>
         </div>
       </li>
     <% end %>
 
-    <% if [admin_role,coodinator_role].include?(current_user.level) == true %>
+    <%# if [admin_role,coodinator_role].include?(current_user.level) == true %>
+    <!--
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 " data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
           4PL Client System/Data
@@ -71,6 +74,7 @@
           </ul>
         </div>
       </li>
-    <% end %>
+    -->
+    <%# end %>
   </ul>
 </div>

@@ -1,0 +1,91 @@
+<h3>ACR Outbound Order Reports</h3>
+
+<table class="table table-bordered">
+	<tr>
+		<td><p style="color: green"><%= notice %></p></td>
+	</tr>
+	<tr>
+		<td>ACR report upload</td>
+	</tr>
+	<tr>
+		<td>
+			<%= form_with url: "/ob_order/acr_upload", local: true, multipart: true do |form| %>
+			  <%= form.file_field :file %>
+			  <%= form.submit "Upload",{class: "btn btn-success"} %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+
+<table class="table table-bordered table-sm">
+	<tr>
+		<td colspan="5">Filter date range</td>
+	</tr>
+	<tr>
+		<%= form_tag("/ob_order/acr_reports" ,:method => 'get') do -%>
+			<td>From</td>
+			<td>
+			  <input type="text" name="start_date" class="form-control form-control-sm" placeholder="YYYY-MM-DD" value="<%= params[:start_date] ? params[:start_date] : '' %>" />		  
+			</td>
+			<td>To</td>
+			<td>
+				<input type="text" name="end_date" class="form-control form-control-sm" placeholder="YYYY-MM-DD" value="<%= params[:end_date] ? params[:end_date] : '' %>" />		  
+			</td>
+			<td>
+				<input type="submit" class="btn btn-primary btn-sm" name="filter" value="Filter">
+			</td>
+		<% end %>
+	</tr>
+</table>
+
+<table class="table table-hover table-striped table-sm table-condensed">
+	<thead><tr><td colspan="4">Stats</td></tr></thead>
+	<tbody>
+		<tr>
+			<td>Order Count:</td>
+			<td><%=@total_orders%></td>
+			<td>Total Lines:</td>
+			<td><%=@total_lines%></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<table class="table table-hover table-striped table-sm table-condensed">
+	<thead>
+		<tr>
+			<td colspan="10"></td>
+		</tr>
+		<tr>
+			<th>Order No.</th>
+			<th>Date</th>
+			<th>Product Type</th>
+			<th>Total Line</th>
+			<th>SKU</th>
+			<th>Unit</th>
+			<th>QTY</th>
+			<th>Product Type</th>
+			<th>Weight</th>
+			<th>Volume</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @ob_order_items.each do |item| %>
+      <tr>
+        <td><%= item.order_no %></td>
+        <td><%= item.ob_order.conf_date %></td>
+        <td><%= item.product_type %></td>
+        <td><%= item.total_line %></td>
+        <td><%= item.sku %></td>
+        <td><%= item.unit %></td>
+        <td><%= item.qty %></td>
+        <td><%= item.product_type %></td>
+        <td><%= item.weight %></td>
+        <td><%= item.volume %></td>
+      </tr>
+    <% end %>
+	</tbody>
+	
+</table>
+
+<%= will_paginate @ob_order_items %>

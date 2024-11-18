@@ -8,6 +8,11 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 
 gem "roo", "~> 2.10.0"
 
+gem 'sidekiq'
+
+gem 'execjs'
+gem 'therubyracer', :platforms => :ruby
+
 #gem 'mysql2'
 
 gem 'whenever', require: false

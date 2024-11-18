@@ -17,12 +17,12 @@ set :output, "log/cron_log.log"
 #   runner "AnotherModel.prune_old_records"
 # end
 
-every 1.day, at: '4:30 am' do
-  runner "CronjobJob.new.fetch_new_shipped_orders"
-end
+# every 1.day, at: '4:30 am' do
+#   runner "CronjobJob.new.fetch_new_shipped_orders"
+# end
 
-every 1.minute do
-  runner "CronjobJob.new.get_individaul_order" 
-end
+# every 1.minute do
+#   runner "CronjobJob.new.get_individaul_order" 
+# end
 
 # Learn more: http://github.com/javan/whenever

@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  warehouse: MyString
+  vendor: MyString
+  order_no: MyString
+  so_type: MyString
+  product_type: MyString
+  client_id: MyString
+  sku: MyString
+  unit: MyString
+  qty: 1
+  weight: 1.5
+  volume: 1.5
+  delivery_date: 2024-11-15 14:16:15
+  conf_date: 2024-11-15 14:16:15
+
+two:
+  warehouse: MyString
+  vendor: MyString
+  order_no: MyString
+  so_type: MyString
+  product_type: MyString
+  client_id: MyString
+  sku: MyString
+  unit: MyString
+  qty: 1
+  weight: 1.5
+  volume: 1.5
+  delivery_date: 2024-11-15 14:16:15
+  conf_date: 2024-11-15 14:16:15

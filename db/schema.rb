@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_05_020656) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_16_005741) do
   create_table "bills", force: :cascade do |t|
     t.integer "customer_id"
     t.datetime "start_date"
@@ -63,6 +63,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_020656) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "packm"
+  end
+
+  create_table "ob_order_items", force: :cascade do |t|
+    t.string "order_no"
+    t.string "product_type"
+    t.string "sku"
+    t.string "unit"
+    t.integer "qty"
+    t.float "weight"
+    t.float "volume"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "total_line"
+  end
+
+  create_table "ob_orders", force: :cascade do |t|
+    t.string "warehouse"
+    t.string "vendor"
+    t.string "order_no"
+    t.string "so_type"
+    t.string "client_id"
+    t.date "delivery_date"
+    t.date "conf_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|
