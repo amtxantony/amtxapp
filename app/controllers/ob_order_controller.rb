@@ -11,7 +11,7 @@ class ObOrderController < ApplicationController
     end_date = params[:end_date] ? params[:end_date] : Date.today
     page = params[:page] ? params[:page] : 1
 
-    @ob_order_items_origin = ObOrderItem.within_date_range(start_date, end_date, 'ACR')
+    @ob_order_items_origin = ObOrderItem.within_date_range(start_date, end_date, 'ACR').order(order_no: :desc)
     @ob_order_items = @ob_order_items_origin.paginate(page: page, per_page: 30)
     unique_records = @ob_order_items_origin.uniq { |record| record.order_no }
 
@@ -30,7 +30,7 @@ class ObOrderController < ApplicationController
     end_date = params[:end_date] ? params[:end_date] : Date.today
     page = params[:page] ? params[:page] : 1
 
-    @ob_order_items_origin = ObOrderItem.within_date_range(start_date, end_date, 'OC')
+    @ob_order_items_origin = ObOrderItem.within_date_range(start_date, end_date, 'OC').order(order_no: :desc)
     @ob_order_items = @ob_order_items_origin.paginate(page: page, per_page: 30)
     unique_records = @ob_order_items_origin.uniq { |record| record.order_no }
 
@@ -79,7 +79,7 @@ class ObOrderController < ApplicationController
           redirect_to '/ob_order/acr_reports', alert: 'Unsupported file type.'
           return
       end
-      redirect_to '/ob_order/acr_reports', notice: 'File processed successfully.'
+      redirect_to '/ob_order/acr_reports', notice: 'File processed successfully, or running on the background.'
     else
       redirect_to '/ob_order/acr_reports', alert: 'Please upload a file.'
     end
@@ -135,17 +135,34 @@ class ObOrderController < ApplicationController
   end
 
   def acr_process_file_dol(file)
-    if file
-      # Save the uploaded file to a temporary location
-      temp_file_path = Rails.root.join('tmp', file.original_filename)
-      File.open(temp_file_path, 'wb') { |f| f.write(file.read) }
+    # Save the uploaded file to a temporary location
+    temp_file_path = Rails.root.join('tmp', file.original_filename)
+    File.open(temp_file_path, 'wb') { |f| f.write(file.read) }
 
-      # Enqueue the background job
-      ProcessExcelJob.perform_later(temp_file_path.to_s)
+    # Enqueue the background job
+    #ProcessExcelJob.perform_later(temp_file_path.to_s)
+    spreadsheet = Roo::Spreadsheet.open(temp_file_path.to_s)
 
-      redirect_to '/ob_order/acr_reports', notice: 'File is being processed in the background.'
-    else
-      redirect_to '/ob_order/acr_reports', alert: 'Please upload a file.'
+    header = spreadsheet.row(5) # Assumes the first row contains headers
+    (6..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      #process_order(row)
+      if row['Status'] == "Ready to Deliver" && !row['Owner'].nil?
+        if ObOrderItem.validate_total_lines(row['Order'])
+          #do nothing
+        else
+          ObOrderItem.create(
+            order_no: row['Order'],
+            product_type: 'ACR_general',
+            sku: row['Product'],
+            unit: 'Unit',
+            qty: row['Picked Qty'],
+            weight: 0,
+            volume: 0,
+            total_line: row['Total Lines']
+            )
+        end
+      end
     end
   end
 
