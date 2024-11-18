@@ -144,7 +144,7 @@ class ObOrderController < ApplicationController
       Date.new(1899, 12, 30) + excel_date.to_i
     elsif excel_date.is_a?(String)
       # Handle string dates
-      formats = ['%d/%m/%Y', '%d/%m/%y','%m/%d/%Y %H:%M'] 
+      formats = ['%d/%m/%Y', '%d/%m/%y','%m/%d/%Y %H:%M','%m/%d/%Y %H:%M:%S'] 
       parsed_date = nil
 
       formats.each do |format|
