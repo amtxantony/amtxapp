@@ -43,20 +43,17 @@ class ObOrderController < ApplicationController
 
     i=0
     @weight_range.each do |wr|
-      @total_qty_first_by_weight[i] = unique_records.select{ |r| wr.cover?(r.weight/1000) && r.total_line.to_i == 1 }.sum(&:qty)
-      @total_qty_other_by_weight[i] = unique_records.select{ |r| wr.cover?(r.weight/1000) && r.total_line.to_i > 1 }.sum(&:qty)
+      @total_qty_first_by_weight[i] = unique_records.select{ |r| wr.cover?(r.weight) && r.total_line.to_i == 1 }.sum(&:qty)
+      @total_qty_other_by_weight[i] = unique_records.select{ |r| wr.cover?(r.weight) && r.total_line.to_i > 1 }.sum(&:qty)
 
       if wr.begin > 10
         @total_base_weight_fitem = @total_qty_first_by_weight[i] * 10
-        @total_consequence_weight_fitem = (unique_records.select{ |r| wr.cover?(r.weight/1000) && r.total_line.to_i == 1 }.sum(&:weight) - @total_base_weight_fitem)/1000
+        @total_consequence_weight_fitem = unique_records.select{ |r| wr.cover?(r.weight) && r.total_line.to_i == 1 }.sum(&:weight) - @total_base_weight_fitem
         @total_base_weight_oitem = @total_qty_other_by_weight[i] * 10
-        @total_consequence_weight_oitem = (unique_records.select{ |r| wr.cover?(r.weight/1000) && r.total_line.to_i > 1 }.sum(&:weight) - @total_base_weight_oitem)/1000
+        @total_consequence_weight_oitem = unique_records.select{ |r| wr.cover?(r.weight) && r.total_line.to_i > 1 }.sum(&:weight) - @total_base_weight_oitem
       end
-
       i+=1
     end
-
-    
 
   end
 
@@ -219,8 +216,8 @@ class ObOrderController < ApplicationController
           sku: row['SKU'],
           unit: row['Unit'],
           qty: row['Qty'],
-          weight: row['Volume'].to_f,
-          volume: row['Weight'].to_f,
+          weight: row['Weight'].to_f,
+          volume: row['Volume'].to_f,
           total_line: row['SO Line']
           )
       end
