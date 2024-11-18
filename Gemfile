@@ -47,8 +47,8 @@ gem "jbuilder"
 
 gem 'bootstrap', '~> 5.0.0'
 
-#gem 'axlsx'
-#gem 'axlsx_rails'
+gem 'axlsx'
+gem 'axlsx_rails'
 
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap4'

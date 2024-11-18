@@ -1,11 +1,11 @@
-<h3>OC Oubound Order Reports</h3>
+<h3>OC Outbound Order Reports</h3>
 
 <table class="table table-bordered">
 	<tr>
 		<td><p style="color: green"><%= notice %></p></td>
 	</tr>
 	<tr>
-		<td>OC report upload</td>
+		<td><b>OC report upload</b></td>
 	</tr>
 	<tr>
 		<td>
@@ -19,7 +19,7 @@
 
 <table class="table table-bordered table-sm">
 	<tr>
-		<td colspan="5">Filter date range</td>
+		<td><b>Filter date range</b></td>
 	</tr>
 	<tr>
 		<%= form_tag("/ob_order/oc_reports" ,:method => 'get') do -%>
@@ -32,14 +32,15 @@
 				<input type="text" name="end_date" class="form-control form-control-sm" placeholder="YYYY-MM-DD" value="<%= params[:end_date] ? params[:end_date] : '' %>" />		  
 			</td>
 			<td>
-				<input type="submit" class="btn btn-primary btn-sm" name="filter" value="Filter">
+				<input type="submit" class="btn btn-primary btn-sm" name="filter" value="Filter">&nbsp;
+				<%= link_to "Export to Excel", ob_order_oc_reports_path(request.query_parameters.merge(format: :xlsx)), class: "btn btn-success btn-sm" %>
 			</td>
 		<% end %>
 	</tr>
 </table>
 
 <table class="table table-hover table-striped table-bordered table-sm table-condensed">
-	<thead><tr><td colspan="12">Stats</td></tr></thead>
+	<thead><tr style="background: green; color:white;"><td colspan="12" style="background: green; color:white;"><b>Stats</b></td></tr></thead>
 	<tbody>
 		<tr>
 			<td colspan="1"><b>Order Count:</b></td>
@@ -84,7 +85,7 @@
 		<tr>
 			<td colspan="10"></td>
 		</tr>
-		<tr>
+		<tr style="background: green; color:white;">
 			<th>Order No.</th>
 			<th>Date</th>
 			<th>Product Type</th>

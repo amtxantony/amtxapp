@@ -1,5 +1,6 @@
 class ObOrderController < ApplicationController
   require 'roo'
+  require 'axlsx_rails'
   before_action :to_login_if_no_session
   def index
     
@@ -17,6 +18,11 @@ class ObOrderController < ApplicationController
     # Calculate totals
     @total_orders = unique_records.count
     @total_lines = unique_records.sum(&:total_line)
+
+    respond_to do |format|
+      format.html # Render the index view
+      format.xlsx { send_exported_file(@ob_order_items_origin, "ACR") }
+    end
   end
 
   def oc_reports
@@ -30,7 +36,6 @@ class ObOrderController < ApplicationController
 
     # Calculate totals
     @total_orders = unique_records.count
-    #@total_lines = unique_records.sum(&:total_line)
 
     #OC_weight_range
     @weight_range = [0..0.25,0.26..0.5,0.51..0.75,0.76..1,1..2,2..3,3..5,5..10,10.01..999]
@@ -53,6 +58,11 @@ class ObOrderController < ApplicationController
         @total_consequence_weight_oitem = unique_records.select{ |r| wr.cover?(r.weight) && r.total_line.to_i > 1 }.sum(&:weight) - @total_base_weight_oitem
       end
       i+=1
+    end
+
+    respond_to do |format|
+      format.html # Render the index view
+      format.xlsx { send_exported_file(@ob_order_items_origin, "OC") }
     end
 
   end
@@ -86,6 +96,43 @@ class ObOrderController < ApplicationController
   end
 
   private
+
+  def send_exported_file(ob_order_items,client_id)
+    file = generate_excel(ob_order_items,client_id)
+    #send_data file.to_stream.read,
+    send_file file,
+              filename: "ob_order_items_#{Time.now.strftime('%Y%m%d%H%M%S')}.xlsx",
+              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  # ensure
+  #   File.delete(file) if File.exist?(file) # Clean up the temporary file
+  end
+
+  def generate_excel(ob_order_items,client_id)
+    filepath = Rails.root.join("tmp", "ob_order_items_#{SecureRandom.uuid}.xlsx")
+    Axlsx::Package.new do |package|
+      package.workbook.add_worksheet(name: "ObOrderItems") do |sheet|
+        # Header Row
+        sheet.add_row ["Order No", "product_type", "sku", "unit","qty","weight","volume","SO line","Client ID","conf date"]
+        # Data Rows
+        ob_order_items.each do |item|
+          sheet.add_row [
+            item.order_no,
+            item.product_type,
+            item.sku,
+            item.unit,
+            item.qty,
+            item.weight,
+            item.volume,
+            item.total_line,
+            client_id,
+            item.ob_order.conf_date.strftime("%d/%m/%Y")
+          ]
+        end
+      end
+      package.serialize(filepath.to_s)
+    end
+    filepath
+  end
 
   def acr_process_file_dol(file)
     if file
