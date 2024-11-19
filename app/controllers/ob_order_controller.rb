@@ -140,35 +140,8 @@ class ObOrderController < ApplicationController
     File.open(temp_file_path, 'wb') { |f| f.write(file.read) }
 
     # Enqueue the background job
-    #ProcessExcelJob.perform_later(temp_file_path.to_s)
-    spreadsheet = Roo::Spreadsheet.open(temp_file_path.to_s)
+    ProcessExcelJob.perform_later(temp_file_path.to_s)
 
-    header = spreadsheet.row(5) # Assumes the first row contains headers
-    (6..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      if !row['Owner'].nil?
-        if row['Status'] == "Ready to Deliver" && row['Owner'].to_i > 100
-
-          if ObOrderItem.validate_total_lines(row['Order'])
-            ObOrderItem.create(
-              order_no: row['Order'].to_s,
-              product_type: 'ACR_general',
-              sku: row['Product'].to_s,
-              unit: 'Unit',
-              qty: row['Picked Qty'].to_i,
-              weight: 0.0,
-              volume: 0.0,
-              total_line: row['Total Lines'].to_i,
-              created_at: DateTime.now,
-              updated_at: DateTime.now
-              )
-
-          end
-          
-        end
-      end
-
-    end
   end
 
   def acr_process_file_ord(file)
@@ -254,8 +227,6 @@ class ObOrderController < ApplicationController
       row = Hash[[header, spreadsheet.row(i)].transpose]
 
       current_order_no = row['Order No']
-
-      puts row
 
       existing_record = ObOrder.find_by(order_no: current_order_no)
       if existing_record
