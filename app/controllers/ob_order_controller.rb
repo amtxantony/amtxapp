@@ -146,23 +146,28 @@ class ObOrderController < ApplicationController
     header = spreadsheet.row(5) # Assumes the first row contains headers
     (6..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      #process_order(row)
-      if row['Status'] == "Ready to Deliver" && !row['Owner'].nil?
-        if ObOrderItem.validate_total_lines(row['Order'])
-          #do nothing
-        else
-          ObOrderItem.create(
-            order_no: row['Order'],
-            product_type: 'ACR_general',
-            sku: row['Product'],
-            unit: 'Unit',
-            qty: row['Picked Qty'],
-            weight: 0,
-            volume: 0,
-            total_line: row['Total Lines']
-            )
+      if !row['Owner'].nil?
+        if row['Status'] == "Ready to Deliver" && row['Owner'].to_i > 100
+
+          if ObOrderItem.validate_total_lines(row['Order'])
+            ObOrderItem.create!(
+              order_no: row['Order'].to_s,
+              product_type: 'ACR_general',
+              sku: row['Product'].to_s,
+              unit: 'Unit',
+              qty: row['Picked Qty'].to_i,
+              weight: 0.0,
+              volume: 0.0,
+              total_line: row['Total Lines'].to_i,
+              created_at: DateTime.now,
+              updated_at: DateTime.now
+              )
+
+          end
+          
         end
       end
+
     end
   end
 

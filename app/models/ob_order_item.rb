@@ -8,14 +8,11 @@ class ObOrderItem < ApplicationRecord
 
 	def self.validate_total_lines(order_no)
 	    total_count = where(order_no: order_no).count
-	    record = find_by(order_no: order_no)
-	    
-	    if record && total_count == record.total_line
-	      # Do nothing, counts match
-	      true
+
+	    if total_count == 0
+	    	return true
 	    else
-	      # Counts do not match, handle logic here if needed
-	      false
+	    	return false
 	    end
   	end
 end
