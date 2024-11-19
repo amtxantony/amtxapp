@@ -20,6 +20,8 @@ module Amtxapp
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :sidekiq
 
+    config.middleware.insert_before 0, Rack::ContentLength, 50.megabytes
+
     config.hosts << "admin1.amtxlogistics.com.au"
   end
 end
