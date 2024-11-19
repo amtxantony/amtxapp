@@ -150,7 +150,7 @@ class ObOrderController < ApplicationController
         if row['Status'] == "Ready to Deliver" && row['Owner'].to_i > 100
 
           if ObOrderItem.validate_total_lines(row['Order'])
-            ObOrderItem.create!(
+            ObOrderItem.create(
               order_no: row['Order'].to_s,
               product_type: 'ACR_general',
               sku: row['Product'].to_s,
