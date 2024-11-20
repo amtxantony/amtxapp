@@ -2,13 +2,11 @@
 
 <table class="table table-bordered">
 	<tr>
+		<td><b>ACR report upload</b></td>
 		<td><p style="color: green"><%= notice %></p></td>
 	</tr>
 	<tr>
-		<td><b>ACR report upload</b></td>
-	</tr>
-	<tr>
-		<td>
+		<td colspan="2">
 			<%= form_with url: "/ob_order/acr_upload", local: true, multipart: true do |form| %>
 			  <%= form.file_field :file %>
 			  <%= form.submit "Upload",{class: "btn btn-success"} %>
@@ -25,11 +23,11 @@
 		<%= form_tag("/ob_order/acr_reports" ,:method => 'get') do -%>
 			<td>From</td>
 			<td>
-			  <input type="text" name="start_date" class="form-control form-control-sm" placeholder="YYYY-MM-DD" value="<%= params[:start_date] ? params[:start_date] : '' %>" />		  
+			  <input type="text" name="start_date" class="form-control form-control-sm" placeholder="YYYY-MM-DD" value="<%= @start_date %>" />		  
 			</td>
 			<td>To</td>
 			<td>
-				<input type="text" name="end_date" class="form-control form-control-sm" placeholder="YYYY-MM-DD" value="<%= params[:end_date] ? params[:end_date] : '' %>" />		  
+				<input type="text" name="end_date" class="form-control form-control-sm" placeholder="YYYY-MM-DD" value="<%= @end_date %>" />		  
 			</td>
 			<td>
 				<input type="submit" class="btn btn-primary btn-sm" name="filter" value="Filter">&nbsp;
@@ -40,7 +38,7 @@
 </table>
 
 <table class="table table-hover table-striped table-sm table-condensed">
-	<thead><tr style="background: skyblue; color:white;"><td colspan="4"><b>Stats</b></td></tr></thead>
+	<thead><tr style="background: skyblue; color:white;"><td colspan="4"><b>Stats</b>: <%="Between #{@start_date} and #{@end_date}"%></td></tr></thead>
 	<tbody>
 		<tr>
 			<td>Order Count:</td>
