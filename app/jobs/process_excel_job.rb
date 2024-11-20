@@ -83,7 +83,7 @@ class ProcessExcelJob < ApplicationJob
           )
         end
 
-        unless ObOrderItem.validate_total_lines(current_order_no)
+        if ObOrderItem.validate_total_lines(current_order_no)
           ObOrderItem.create(
             order_no: current_order_no,
             product_type: row['Product Type'],
