@@ -38,7 +38,7 @@ class ObOrderController < ApplicationController
     @total_orders = unique_records.count
 
     #OC_weight_range
-    @weight_range = [0..0.25,0.26..0.5,0.51..0.75,0.76..1,1..2,2..3,3..5,5..10,10.01..999]
+    @weight_range = [0..0.25,0.26..0.5,0.51..0.75,0.76..1,1.01..2,2.01..3,3.01..5,5.01..10,10.01..999]
     @total_qty_first_by_weight = []
     @total_qty_other_by_weight = []
     @total_base_weight_fitem = 0.0
